@@ -7,7 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
   <!-- Bootstrap CSS -->
-  <link rel="stylesheet" href="/util/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/public/util/css/bootstrap.min.css">
 
   <title>Hello, world!</title>
 </head>
@@ -32,9 +32,9 @@
   </div>
   <!-- Optional JavaScript -->
   <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-  <script src="/util/jq.js"></script>
-  <script src="/util/popper.js"></script>
-  <script src="/util/bs4.js"></script>
+  <script src="/public/util/jq.js"></script>
+  <script src="/public/util/popper.js"></script>
+  <script src="/public/util/bs4.js"></script>
   <script>
     function fetchUser() {
       $.ajax({
@@ -107,16 +107,16 @@
         }
       });
     }
-    let count = 1;
+    // let count = 1;
     $('.check-btn').click(function (e) {
       e.preventDefault();
       updateSession();
-      count = 1;
+      // count = 1;
     });
-
-    let time = setInterval(() => {
-      console.log(count++);
-    }, 1000)
+    let q = 0;
+    // let time = setInterval(() => {
+    //   console.log(count++);
+    // }, 1000)
   </script>
 </body>
 
