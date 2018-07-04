@@ -1,4 +1,5 @@
 const Koa = require('koa')
+const session = require('koa-session-minimal')
 const app = new Koa()
 const views = require('koa-views')
 const json = require('koa-json')
@@ -6,9 +7,10 @@ const onerror = require('koa-onerror')
 const bodyparser = require('koa-bodyparser')
 const logger = require('koa-logger')
 
+
 const index = require('./routes/index')
 const users = require('./routes/users')
-
+process.env.TZ = 'Asia/Shanghai';
 
 // error handler
 onerror(app)
@@ -24,6 +26,19 @@ app.use(require('koa-static')(__dirname + '/public'))
 app.use(views(__dirname + '/views', {
   extension: 'html'
 }))
+
+// session
+app.use(session({
+  key: 'hcj', // cookie 中存储 session-id 时的键名, 默认为 koa:sess
+  cookie: { // 与 cookie 相关的配置
+    // domain: 'localhost', // 写 cookie 所在的域名
+    // path: '/', // 写 cookie 所在的路径
+    // maxAge: 30 * 1000, // cookie 有效时长
+    httpOnly: true, // 是否只用于 http 请求中获取
+    overwrite: false // 是否允许重写
+  }
+}))
+
 
 // logger
 app.use(async (ctx, next) => {

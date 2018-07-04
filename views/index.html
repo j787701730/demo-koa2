@@ -7,8 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
   <!-- Bootstrap CSS -->
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB"
-    crossorigin="anonymous">
+  <link rel="stylesheet" href="/util/css/bootstrap.min.css">
 
   <title>Hello, world!</title>
 </head>
@@ -26,14 +25,16 @@
       </thead>
       <tbody id="user-box"></tbody>
     </table>
+
+    <button type="button" class="btn btn-default login-btn">登录</button>
+    <button type="button" class="btn btn-default check-btn">查看</button>
+
   </div>
   <!-- Optional JavaScript -->
   <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-  <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
-    crossorigin="anonymous"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T"
-    crossorigin="anonymous"></script>
+  <script src="/util/jq.js"></script>
+  <script src="/util/popper.js"></script>
+  <script src="/util/bs4.js"></script>
   <script>
     function fetchUser() {
       $.ajax({
@@ -68,6 +69,54 @@
     }
 
     fetchUser();
+
+    function checkLogin() {
+      $.ajax({
+        // url: 'string',
+        url: 'checkLogin',
+        data: {
+          user_name: 'zhengw123',
+          user_pwd: '123456'
+        },
+        type: 'post',
+        dataType: 'json',
+        success: function (msg) {
+          console.log(msg);
+        },
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+
+        }
+      });
+    }
+    $('.login-btn').click(function () {
+      checkLogin();
+    });
+
+
+    function updateSession() {
+      $.ajax({
+        url: 'updateSession',
+        data: {},
+        type: 'post',
+        dataType: 'json',
+        success: function (msg) {
+          console.log(msg);
+        },
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+
+        }
+      });
+    }
+    let count = 1;
+    $('.check-btn').click(function (e) {
+      e.preventDefault();
+      updateSession();
+      count = 1;
+    });
+
+    let time = setInterval(() => {
+      console.log(count++);
+    }, 1000)
   </script>
 </body>
 
