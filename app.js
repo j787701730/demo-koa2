@@ -10,7 +10,6 @@ const logger = require('koa-logger')
 
 const index = require('./routes/index')
 const users = require('./routes/users')
-process.env.TZ = 'Asia/Shanghai';
 
 // error handler
 onerror(app)
@@ -39,13 +38,15 @@ app.use(session({
   }
 }))
 
-
 // logger
 app.use(async (ctx, next) => {
-  const start = new Date()
-  await next()
-  const ms = new Date() - start
-  console.log(`${ctx.method} ${ctx.url} - ${ms}ms`)
+  // const start = new Date()
+  await next();
+  if (ctx.status === 404) {
+    await ctx.render('error.html');
+  }
+  // const ms = new Date() - start
+  // console.log(`${ctx.method} ${ctx.url} - ${ms}ms`)
 })
 
 // routes
@@ -54,7 +55,7 @@ app.use(users.routes(), users.allowedMethods())
 
 // error-handling
 app.on('error', (err, ctx) => {
-  console.error('server error', err, ctx)
+  console.error('server error', err, ctx);
 });
 
 module.exports = app
