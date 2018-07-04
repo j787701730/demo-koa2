@@ -4,24 +4,22 @@ router.get('/', async (ctx, next) => {
   // await ctx.render('index', {
   //   title: 'hello '
   // })
-
   // var _sql = 'select * from user';
-  console.log(await mysql.findAllPost());
+  await ctx.render('index.html');
   // ctx.body = ctx.request.query;
   // ctx.body = ctx.query;
-  ctx.body = await mysql.findAllPost();
+  // ctx.body = await mysql.findAllPost();
 })
 
-router.get('/string', async (ctx, next) => {
-  ctx.body = {
-    title: 'koa2 json'
-  }; // 'koa2 string'
+router.post('/string', async (ctx, next) => {
+  var res = await mysql.query(`SELECT * FROM user where user_id = '${ctx.request.body.user_id}'`);
+  ctx.body = res;
+
 })
 
 router.get('/json', async (ctx, next) => {
-  ctx.body = {
-    title: 'koa2 json'
-  }
+  var res = await mysql.query(`SELECT * FROM user where user_id = '${ctx.query.user_id}'`);
+  ctx.body = res;
 })
 
 module.exports = router

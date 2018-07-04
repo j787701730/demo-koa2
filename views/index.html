@@ -1,12 +1,74 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang="zh-cn">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Document</title>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB"
+    crossorigin="anonymous">
+
+  <title>Hello, world!</title>
 </head>
+
 <body>
-  hello world
+  <div class="container">
+    <h1>Hello, world!</h1>
+    <table class="table table-hover table-bordered">
+      <thead>
+        <tr>
+          <th>user_id</th>
+          <th>user_name</th>
+          <th>user_pwd</th>
+        </tr>
+      </thead>
+      <tbody id="user-box"></tbody>
+    </table>
+  </div>
+  <!-- Optional JavaScript -->
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T"
+    crossorigin="anonymous"></script>
+  <script>
+    function fetchUser() {
+      $.ajax({
+        // url: 'string',
+        url: 'json',
+        data: {
+          user_id: 1
+        },
+        // type: 'post',
+        type: 'get',
+        dataType: 'json',
+        success: function (msg) {
+          if (!$.isEmptyObject(msg)) {
+            var str = '';
+            $.each(msg, function (i, el) {
+              str +=
+                `<tr>
+                <td>${el.user_id}</td>
+                <td>${el.user_name}</td>
+                <td>${el.user_pwd}</td>
+                </tr>`;
+            });
+            $('#user-box').html(str);
+          } else {
+            $('#user-box').html('无数据');
+          }
+        },
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+
+        }
+      });
+    }
+
+    fetchUser();
+  </script>
 </body>
+
 </html>
