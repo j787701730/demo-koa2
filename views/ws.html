@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>ws</title>
+  <link rel="stylesheet" href="/public/util/css/bootstrap.min.css">
+
+</head>
+
+<body>
+  <div class="container">
+    <h1>ws</h1>
+    <input type="text" class="msg form-control col-xl-2">
+    <button class="btn btn-default send">send</button>
+    <ul></ul>
+  </div>
+
+  <script src="/public/util/jq.js"></script>
+  <script src="/public/util/popper.js"></script>
+  <script src="/public/util/bs4.js"></script>
+  <script src="/public/js/socket/io.js"></script>
+  <script>
+    var socket = io.connect('http://localhost:3000/');
+    socket.on('news', function (data) {
+      // console.log(data);
+      // socket.emit('my other event', {
+      //   my: '12333333333331313'
+      // });
+      $('h1').html('ws: '+ data.hello)
+    });
+    $('.send').click(function (param) {
+      socket.emit('my other event', {
+        my: $('.msg').val()
+      });
+    })
+
+    socket.on("hi", function (data) {
+      $('ul').append('<li>' + data.msg + '</li>');
+    });
+  </script>
+</body>
+
+</html>

@@ -19,9 +19,10 @@ gulp.task("node", function () {
 gulp.task('a', ["node"], function () { //'./static/**/*.*',
   //这的文件只需要监听前端的，一般后端开发不需要刷新页面
   var files = [
-    '../templates/**/*.mustache',
-    './static/**/*.*',
-    './views/*.html'
+    // '../templates/**/*.mustache',
+    // './static/**/*.*',
+    './views/*.html',
+    './bin/*'
   ];
 
   //gulp.run(["node"]);
