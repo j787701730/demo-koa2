@@ -22,7 +22,7 @@ gulp.task('a', ["node"], function () { //'./static/**/*.*',
     // '../templates/**/*.mustache',
     // './static/**/*.*',
     './views/*.html',
-    './bin/*'
+    './*'
   ];
 
   //gulp.run(["node"]);
