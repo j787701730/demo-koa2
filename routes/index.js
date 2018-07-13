@@ -1,15 +1,7 @@
 const router = require('koa-router')()
 const mysql = require('../lib/mysql.js')
 router.get('/', async (ctx, next) => {
-  // await ctx.render('index', {
-  //   title: 'hello '
-  // })
-  // var _sql = 'select * from user';
-
   await ctx.render('index.html');
-  // ctx.body = ctx.request.query;
-  // ctx.body = ctx.query;
-  // ctx.body = await mysql.findAllPost();
 })
 
 router.post('/checkLogin', async (ctx, next) => {
@@ -24,7 +16,7 @@ router.post('/checkLogin', async (ctx, next) => {
       err_msg: `${ctx.session.user.user_name} 已登录，请勿重复登录`,
       timelong: ctx.session.user.timelong / 1000
     }
-    ctx.session.user.timelong = Date.now() + 10000;
+    ctx.session.user.timelong = Date.now() + 1000 * 3600;
   } else {
     if (user_name && user_pwd) {
       let sql = `select * from user where user_name = '${user_name}' and user_pwd = '${user_pwd}'`;
@@ -34,7 +26,7 @@ router.post('/checkLogin', async (ctx, next) => {
         ctx.session.user = {
           user_name,
           user_pwd,
-          timelong: Date.now() + 10000
+          timelong: Date.now() + 1000 * 3600
         }
         ctx.body = {
           err_code: '0',
@@ -65,11 +57,11 @@ router.post('/string', async (ctx, next) => {
 })
 router.post('/updateSession', async (ctx, next) => {
   if (ctx.session.user && ctx.session.user.timelong && ctx.session.user.timelong > Date.now()) {
-    ctx.session.user.timelong = Date.now() + 10000;
+    ctx.session.user.timelong = Date.now() + 1000 * 3600;
     ctx.body = {
       err_code: '',
       code_msg: '还在登录中',
-      timelong: ctx.session.user.timelong
+      timelong: new Date(ctx.session.user.timelong) + ':' + ctx.session.user.user_name
     }
   } else {
     ctx.body = {
