@@ -22,21 +22,22 @@ var port = normalizePort(process.env.PORT || '3000');
 var server = http.createServer(app.callback());
 var io = require('socket.io')(server);
 
-io.on('connection', function (socket) {
-  console.log(socket.id);
-  socket.emit('news', {
-    hello: socket.id
+io.on('connection', async (ctx) => {
+  //console.log(ctx);
+  // cookies.set('name', '121212');
+  await ctx.emit('news', {
+    hello: ctx.id
   });
-
+  ctx.cookies.set('name', ctx.id);
   // socket.broadcast.emit('hi', {
   //   data: 'hello world'
   // });
-  socket.on('my other event', function (data) {
+  await ctx.on('my other event', function (data) {
     console.log(data);
     console.log(data);
 
     // io.emit('hi', data.my);
-    socket.broadcast.emit('hi', {
+    ctx.broadcast.emit('hi', {
       msg: socket.id + '  发的:' + data.my
     }); // 广播
   });

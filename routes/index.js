@@ -12,7 +12,7 @@ router.post('/checkLogin', async (ctx, next) => {
 
   if (ctx.session.user && ctx.session.user.user_name == user_name && ctx.session.user.user_pwd == user_pwd) {
     ctx.body = {
-      err_code: '1',
+      err_code: '0',
       err_msg: `${ctx.session.user.user_name} 已登录，请勿重复登录`,
       timelong: ctx.session.user.timelong / 1000
     }
@@ -64,6 +64,7 @@ router.post('/updateSession', async (ctx, next) => {
       timelong: new Date(ctx.session.user.timelong) + ':' + ctx.session.user.user_name
     }
   } else {
+    ctx.session.user = null;
     ctx.body = {
       err_code: '',
       code_msg: '登录失效'
