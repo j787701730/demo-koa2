@@ -1,5 +1,6 @@
 const Koa = require('koa')
 const session = require('koa-session-minimal')
+const Redis = require('ioredis');
 const app = new Koa()
 const views = require('koa-views')
 const json = require('koa-json')
@@ -50,6 +51,20 @@ app.use(async (ctx, next) => {
   // const ms = new Date() - start
   // console.log(`${ctx.method} ${ctx.url} - ${ms}ms`)
 })
+
+const client = new Redis();
+client.on('error', async (err, result) => {
+  console.log('连接redis错误', err);
+});
+client.on('connect', async () => {
+  console.log('连接redis服务成功');
+});
+
+client.set('foo', 'bar');
+client.get('foo', function (err, result) {
+  console.log(result);
+});
+
 
 // routes
 app.use(index.routes(), index.allowedMethods())

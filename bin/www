@@ -28,17 +28,15 @@ io.on('connection', async (ctx) => {
   await ctx.emit('news', {
     hello: ctx.id
   });
-  ctx.cookies.set('name', ctx.id);
+  // ctx.cookies.set('name', ctx.id);
   // socket.broadcast.emit('hi', {
   //   data: 'hello world'
   // });
-  await ctx.on('my other event', function (data) {
+  ctx.on('my other event', function (data) {
     console.log(data);
-    console.log(data);
-
     // io.emit('hi', data.my);
     ctx.broadcast.emit('hi', {
-      msg: socket.id + '  发的:' + data.my
+      msg: ctx.id + '  发的:' + data.my
     }); // 广播
   });
 

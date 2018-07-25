@@ -73,15 +73,15 @@
   <script src="/public/util/popper.js"></script>
   <script src="/public/util/bs4.js"></script>
   <script>
-    navigator.geolocation.getCurrentPosition(geo_success, geo_error);
+    // navigator.geolocation.getCurrentPosition(geo_success, geo_error);
 
-    function geo_success(position) {
-      console.log(position.coords.latitude, position.coords.longitude);
-    }
+    // function geo_success(position) {
+    //   console.log(position.coords.latitude, position.coords.longitude);
+    // }
 
-    function geo_error(msg) {
-      console.log(msg.code, msg.message);
-    }
+    // function geo_error(msg) {
+    //   console.log(msg.code, msg.message);
+    // }
 
     function fetchUser() {
       $.ajax({
